@@ -24,11 +24,22 @@ fastify.get('/dmz', {}, (req, res) => {
     res.send({replique: "Ca pourrait être mieux protégé..."})
 })
 
+
 fastify.after(() => {
     fastify.route({
         method: 'GET',
         url: '/secu',
         onRequest: fastify.basicAuth,
+        handler: async (req, reply) => {
+            return {
+                replique: 'Un Lannister paye toujours ses dettes !'
+            }
+        }
+    })
+
+    fastify.route({
+        method: 'GET',
+        url: '/autre',
         handler: async (req, reply) => {
             return {
                 replique: 'Un Lannister paye toujours ses dettes !'
